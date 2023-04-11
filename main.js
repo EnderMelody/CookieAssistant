@@ -824,7 +824,7 @@ CookieAssistant.launch = function()
 								var highestBuilding=0;
 								for (var i in Game.Objects) {if (Game.Objects[i].amount>0) highestBuilding=Game.Objects[i];}
 								var objectName = Game.ObjectsById[highestBuilding].name;
-								Game.SetDragonAura(17, 0);
+								Game.SetDragonAura(18, 0);
 								Game.ConfirmPrompt();
 								Game.clickLump();
 								Game.SetDragonAura(CookieAssistant.config.particular.dragon.aura1, 0);
