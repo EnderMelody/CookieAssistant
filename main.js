@@ -9,7 +9,7 @@ if(typeof CCSE == 'undefined')
 
 CookieAssistant.name = 'Cookie Assistant';
 CookieAssistant.version = '0.7.0';
-CookieAssistant.GameVersion = '2.042';
+CookieAssistant.GameVersion = '2.048';
 
 
 CookieAssistant.launch = function()
@@ -387,6 +387,11 @@ CookieAssistant.launch = function()
 					desc: "Valentines / バレンタイン",
 					season: "valentines",
 				},
+				5:
+				{
+					desc: "buisness day",
+					season: "fools",
+				},
 			},
 		}
 
@@ -680,7 +685,7 @@ CookieAssistant.launch = function()
 							if (halloweenRate >= 1)
 							{
 								//エルダー誓約を購入してババアポカリプスを終了させてから次に行く
-								Game.Upgrades["Elder Covenant"].buy(1);
+								//Game.Upgrades["Elder Covenant"].buy(1);
 								CookieAssistant.SwitchNextSeason();
 							}
 						}
@@ -814,7 +819,19 @@ CookieAssistant.launch = function()
 						var age = Date.now() - Game.lumpT;
 						if (age > Game.lumpRipeAge && age < Game.lumpOverripeAge)
 						{
-							Game.clickLump();
+							if (CookieAssistant.config.flags.autoTrainDragon && Game.dragonLevel == Game.dragonLevels.length - 1)
+							{
+								var highestBuilding=0;
+								for (var i in Game.Objects) {if (Game.Objects[i].amount>0) highestBuilding=Game.Objects[i];}
+								var objectName = Game.ObjectsById[highestBuilding].name;
+								Game.SetDragonAura(17, 0);
+								Game.ConfirmPrompt();
+								Game.clickLump();
+								Game.SetDragonAura(CookieAssistant.config.particular.dragon.aura1, 0);
+								Game.ConfirmPrompt();
+								Game.Objects[objectName].buy(2);
+							}
+							else Game.clickLump();
 						}
 					},
 					CookieAssistant.config.intervals.autoHarvestSugarlump
@@ -1018,10 +1035,7 @@ CookieAssistant.launch = function()
 			}
 			Game.Objects[objectName].sell(amount);
 			CookieAssistant.config.particular.sell.isAfterSell[index] = 1;
-			if(isMode4)
-			{
-				CookieAssistant.isAfterSpellcast = false;
-			}
+			CookieAssistant.isAfterSpellcast = false;
 			return true;
 		}
 	}
@@ -1036,7 +1050,7 @@ CookieAssistant.launch = function()
 
 	CookieAssistant.SwitchNextSeason = function()
 	{
-		let seasons = ["valentines", "christmas", "easter", "halloween"];
+		let seasons = ["valentines", "christmas", "easter", "halloween", "fools"];
 		let isCompletes = [
 			(Game.GetHowManyHeartDrops() / Game.heartDrops.length) >= 1,
 			((Game.GetHowManySantaDrops() / Game.santaDrops.length) >= 1) && ((Game.GetHowManyReindeerDrops() / Game.reindeerDrops.length) >= 1) && Game.santaLevel >= 14,
