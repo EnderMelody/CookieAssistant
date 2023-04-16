@@ -608,6 +608,14 @@ CookieAssistant.launch = function()
 								{
 									continue;
 								}
+								if (CookieAssistant.config.particular.upgrades.mode == 2 && upgrade.name == "Communal brainsweep")
+								{
+									continue;
+								}
+								if (CookieAssistant.config.particular.upgrades.mode == 2 && upgrade.name == "Elder Pact")
+								{
+									continue;
+								}
 								//チョコの卵モードがONの時
 								if (CookieAssistant.config.flags.autoChocolateEgg && upgrade.name == "Chocolate egg")
 								{
@@ -665,6 +673,15 @@ CookieAssistant.launch = function()
 						}
 						else if (Game.season == "halloween")
 						{
+							Game.wrinklers.forEach(wrinkler => { //auto pops wrinklers
+								if (wrinkler.close == 1)
+								{
+									if (CookieAssistant.config.particular.wrinkler.mode == 1 && wrinkler.type == 1)
+									{
+										return;
+									}
+									wrinkler.hp = 0;
+								}});
 							//エルダー宣誓の自動購入がONのときは強制OFFにする
 							if (CookieAssistant.config.flags.autoBuyElderPledge == 1)
 							{
