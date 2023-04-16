@@ -112,4 +112,5 @@ Added option (planned) to autobuybuildings to not buy wizard towers
 Added option to autobuybuildings to buy 1 at a time  
 Added option to autosellbuildings to only sell when there is no active buff  
 Fixed filter for autobuyupgrades to not auto buy any that advance the Grandmapocalypse  
+Fixed Cursed finger not counting as a buff  
 Probably some more I forgot about
