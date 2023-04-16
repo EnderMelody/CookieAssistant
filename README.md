@@ -21,12 +21,15 @@ Steam版クッキークリッカーのアシストツールです。
   - Auto buy Upgrades
   - Auto switch to seasons with remaining upgrades
     - Upgrades of Santa will also be done automatically.
+    - Will automatically pop wrinklers while it is halloween (EnderMelody)
     - If "ElderPledge" or "ElderCovenant" is valid on Halloween, "Revoke Elder Covenant" will be purchased automatically.
     - If feature "Auto purchase ElderPledge" is enabled on Halloween, it will be automatically disabled.
     - By using this function together with "Auto click GoldenCookie", "Auto buy Upgrades" and "Auto destroy Wrinklers", you can fully automate the acquisition of all upgrades of seasons.
   - Auto buy buildings
     - If "Auto train Dragon" feature turned on, this feature purchases up to 350 buildings until they are fully trained.
+    - Will Skip wizard towers (EnderMelody)
   - Auto harvest Sugar Lumps
+    - If "auto train dragon" is on this will also switch the aura to dragons curve and then back when harvesting (EnderMelody) 
   - Auto set spirits to slots in the pantheon
     - Spirit Set will only be performed when the Pantheon slot is empty.
     - Spirit sets are a regular procedure and will not be performed during the cool time.
