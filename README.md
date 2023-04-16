@@ -104,12 +104,12 @@ Compatible with following mods.
 - [CookieTooks](https://github.com/hideki0403/CookieTools/)
 
 --------------------------------------------------------------------------------------------------------------
-Changes from the base mod:
-Added auto popping wrinklers during halloween while autoswtichseasons is on
-Added buisness day to the autoswitchseasons complete option
-Added autotraindragon to also automatically equip dragons curve before automatically harvesting surgar lumps
-Added option (planned) to autobuybuildings to not buy wizard towers
-Added option to autobuybuildings to buy 1 at a time
-Added option to autosellbuildings to only sell when there is no active buff
-Fixed filter for autobuyupgrades to not auto buy any that advance the Grandmapocalypse
+Changes from the base mod:  
+Added auto popping wrinklers during halloween while autoswtichseasons is on  
+Added buisness day to the autoswitchseasons complete option  
+Added autotraindragon to also automatically equip dragons curve before automatically harvesting surgar lumps  
+Added option (planned) to autobuybuildings to not buy wizard towers  
+Added option to autobuybuildings to buy 1 at a time  
+Added option to autosellbuildings to only sell when there is no active buff  
+Fixed filter for autobuyupgrades to not auto buy any that advance the Grandmapocalypse  
 Probably some more I forgot about
