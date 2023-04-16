@@ -222,22 +222,27 @@ CookieAssistant.launch = function()
 				},
 				2:
 				{
-					desc: `All Upgrades that don't cause "Grandmapocalypse" / ババアポカリプスが起きない全てのアップグレード`,
+					desc: `All Upgrades that don't advance "Grandmapocalypse" / ババアポカリプスが起きない全てのアップグレード`,
 				},
 			},
 			buildings:
 			{
 				0:
 				{
+					amount: 1,
+					desc: "Buy every 1 pieces / 1個単位で購入する",
+				},
+				1:
+				{
 					amount: 10,
 					desc: "Buy every 10 pieces / 10個単位で購入する",
 				},
-				1:
+				2:
 				{
 					amount: 50,
 					desc: "Buy every 50 pieces / 50個単位で購入する",
 				},
-				2:
+				3:
 				{
 					amount: 100,
 					desc: "Buy every 100 pieces / 100個単位で購入する",
@@ -283,6 +288,10 @@ CookieAssistant.launch = function()
 				6:
 				{
 					desc: "Have three or more buffs / バフが3つ以上",
+				},
+				7:
+				{
+					desc: "Have no active buffs"
 				},
 			},
 			sell_buildings_after: //建物自動売却を行った後の動作
@@ -842,7 +851,7 @@ CookieAssistant.launch = function()
 								Game.SetDragonAura(18, 0);
 								Game.ConfirmPrompt();
 								Game.clickLump();
-								Game.SetDragonAura(CookieAssistant.config.particular.dragon.aura2, 0); //disallow setting aura if the other aura already contains it
+								Game.SetDragonAura(CookieAssistant.config.particular.dragon.aura2, 0); //todo - disallow setting aura if the other aura already contains it
 								Game.ConfirmPrompt();
 								Game.ToggleSpecialMenu(false);
 								Game.Objects[highestBuilding].buy(2);
@@ -1043,7 +1052,8 @@ CookieAssistant.launch = function()
 		var isMode4 = activate_mode == 4 && CookieAssistant.isAfterSpellcast;
 		var isMode5 = activate_mode == 5;
 		var isMode6 = activate_mode == 6 && buffCount >= 3;
-		if (isMode0 || isMode1 || isMode2 || isMode3 || isMode4 || isMode5 || isMode6)
+		var isMode7 = activate_mode == 7 && buffCount <= 0;
+		if (isMode0 || isMode1 || isMode2 || isMode3 || isMode4 || isMode5 || isMode6 || isMode7)
 		{
 			if (Game.Objects[objectName].amount < amount)
 			{
