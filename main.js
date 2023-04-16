@@ -816,12 +816,10 @@ CookieAssistant.launch = function()
 						var age = Date.now() - Game.lumpT;
 						if (age > Game.lumpRipeAge && age < Game.lumpOverripeAge)
 						{
-							if (CookieAssistant.config.flags.autoTrainDragon == 0 && Game.dragonLevel == Game.dragonLevels.length - 1)
+							if (CookieAssistant.config.flags.autoTrainDragon && Game.dragonLevel == Game.dragonLevels.length - 1)
 							{
 								var highestBuilding = 0;
-								for (var i in Game.Objects) {if (Game.Objects[i].amount>0) highestBuilding = Game.Objects[i];}
-								//var objectName = Game.ObjectsById[highestBuilding].name; //this breaks
-								Game.Notify("lump time",objectName,1,false);
+								for (var i in Game.Objects) {if (Game.Objects[i].amount>0) highestBuilding = i;}
 								Game.specialTab = "dragon";
 								Game.ToggleSpecialMenu(true);
 								Game.SetDragonAura(18, 0);
@@ -830,8 +828,8 @@ CookieAssistant.launch = function()
 								Game.SetDragonAura(CookieAssistant.config.particular.dragon.aura2, 0); //disallow setting aura if the other aura already contains it
 								Game.ConfirmPrompt();
 								Game.ToggleSpecialMenu(false);
-								//Game.Objects[objectName].buy(2);
-								Game.Notify('lump time','harvesting sugar lumps with dragon curve...rebuying: ' + objectName + " id: " + highestBuilding,1,false);
+								Game.Objects[highestBuilding].buy(2);
+								Game.Notify('lump time','harvesting sugar lumps with dragon curve...rebuying: ' + highestBuilding,1,false);
 							}
 							else Game.clickLump();
 						}
