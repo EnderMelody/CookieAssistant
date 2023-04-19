@@ -840,25 +840,23 @@ CookieAssistant.launch = function()
 							return;
 						}
 						var age = Date.now() - Game.lumpT;
-						if (age > Game.lumpRipeAge && age < Game.lumpOverripeAge)
+						if (age > Game.lumpRipeAge * 0.9524 && age && CookieAssistant.config.flags.autoTrainDragon && Game.dragonLevel == Game.dragonLevels.length - 1) //add check for dragon auto select and calculate time with reduction from dragon curve
 						{
-							if (CookieAssistant.config.flags.autoTrainDragon && Game.dragonLevel == Game.dragonLevels.length - 1)
-							{
-								var highestBuilding = 0;
-								for (var i in Game.Objects) {if (Game.Objects[i].amount>0) highestBuilding = i;}
-								Game.specialTab = "dragon";
-								Game.ToggleSpecialMenu(true);
-								Game.SetDragonAura(18, 0);
-								Game.ConfirmPrompt();
-								Game.clickLump();
-								Game.SetDragonAura(CookieAssistant.config.particular.dragon.aura2, 0); //todo - disallow setting aura if the other aura already contains it
-								Game.ConfirmPrompt();
-								Game.ToggleSpecialMenu(false);
-								Game.Objects[highestBuilding].buy(2);
-								Game.Notify('lump time','harvesting sugar lumps with dragon curve...rebuying: ' + highestBuilding,1,false);
-							}
-							else Game.clickLump();
+							var highestBuilding = 0;
+							for (var i in Game.Objects) {if (Game.Objects[i].amount>0) highestBuilding = i;}
+							Game.Notify('lump time','harvesting sugar lumps with dragon curve...harvested type: ' + Game.lumpCurrentType + ' rebuying: ' + highestBuilding,1,false);
+							Game.specialTab = "dragon";
+							Game.ToggleSpecialMenu(true);
+							Game.SetDragonAura(18, 0);
+							Game.ConfirmPrompt();
+							Game.Objects[highestBuilding].buy(1);
+							Game.clickLump();
+							Game.SetDragonAura(CookieAssistant.config.particular.dragon.aura2, 0); //todo - disallow setting aura if the other aura already contains it
+							Game.ConfirmPrompt();
+							Game.ToggleSpecialMenu(false);
+							Game.Objects[highestBuilding].buy(1);
 						}
+						else if (age > Game.lumpRipeAge) {Game.clickLump();}
 					},
 					CookieAssistant.config.intervals.autoHarvestSugarlump
 				);
