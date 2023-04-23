@@ -685,10 +685,7 @@ CookieAssistant.launch = function()
 							Game.wrinklers.forEach(wrinkler => { //auto pops wrinklers
 								if (wrinkler.close == 1)
 								{
-									if (CookieAssistant.config.particular.wrinkler.mode == 1 && wrinkler.type == 1)
-									{
-										return;
-									}
+									if (CookieAssistant.config.particular.wrinkler.mode == 1 && wrinkler.type == 1) {return;}
 									wrinkler.hp = 0;
 								}});
 							//エルダー宣誓の自動購入がONのときは強制OFFにする
@@ -840,16 +837,17 @@ CookieAssistant.launch = function()
 							return;
 						}
 						var age = Date.now() - Game.lumpT;
-						if (age > Game.lumpRipeAge * 0.9524 && age && CookieAssistant.config.flags.autoTrainDragon && Game.dragonLevel == Game.dragonLevels.length - 1) //add check for dragon auto select and calculate time with reduction from dragon curve
-						{
+						if (age > (Game.lumpRipeAge)  && CookieAssistant.config.flags.autoTrainDragon && Game.dragonLevel == Game.dragonLevels.length - 1)  //todo - check dragon curve isnt already equip
+						{//age check should be /1.05 but claculated time is outputting wierd
 							var highestBuilding = 0;
 							for (var i in Game.Objects) {if (Game.Objects[i].amount>0) highestBuilding = i;}
-							Game.Notify('lump time','harvesting sugar lumps with dragon curve...harvested type: ' + Game.lumpCurrentType + ' rebuying: ' + highestBuilding,1,false);
+							Game.Notify("lump time","harvesting sugar lumps with dragon curve...harvested type: " + Game.lumpCurrentType + " rebuying: " + highestBuilding,1,false);
 							Game.specialTab = "dragon";
 							Game.ToggleSpecialMenu(true);
 							Game.SetDragonAura(18, 0);
 							Game.ConfirmPrompt();
 							Game.Objects[highestBuilding].buy(1);
+							Game.computeLumpTimes(); //isnt giving the correct ripe time, idk why; ends up making the ripe time over the estimated amount
 							Game.clickLump();
 							Game.SetDragonAura(CookieAssistant.config.particular.dragon.aura2, 0); //todo - disallow setting aura if the other aura already contains it
 							Game.ConfirmPrompt();
@@ -861,7 +859,7 @@ CookieAssistant.launch = function()
 					CookieAssistant.config.intervals.autoHarvestSugarlump
 				);
 			},
-			autoSellBuilding : () =>
+			autoSellBuilding : () =>//todo - add flag to not autobuy until autosell has bought back sold buildings (if set to)
 			{
 				CookieAssistant.intervalHandles.autoSellBuilding = setInterval(
 					() =>
@@ -1080,7 +1078,7 @@ CookieAssistant.launch = function()
 			(Game.GetHowManyHeartDrops() / Game.heartDrops.length) >= 1,
 			((Game.GetHowManySantaDrops() / Game.santaDrops.length) >= 1) && ((Game.GetHowManyReindeerDrops() / Game.reindeerDrops.length) >= 1) && Game.santaLevel >= 14,
 			(Game.GetHowManyEggs() / Game.easterEggs.length) >= 1,
-			(Game.GetHowManyHalloweenDrops() / Game.halloweenDrops.length) >= 1,
+			(Game.GetHowManyHalloweenDrops() / Game.halloweenDrops.length) + !Game.Has('One mind') >= 1,
 		];
 		
 		if (CookieAssistant.config.flags.autoChocolateEgg && !isCompletes[2])
